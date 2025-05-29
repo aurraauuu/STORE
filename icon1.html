@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aura Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- fontawesome cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- bootstrap css -->
+  <link rel = "stylesheet" href = "bootstrap-5.0.2-dist/css/bootstrap.min.css">
+  <!-- custom css -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;500;700&family=Poppins:wght@300;400;500&display=swap');
+
+    :root {
+      --primary-color: #800020; /* Burgundy */
+      --text-color: #333333;
+      --bg-color: #ffffff; /* White */
+      --shadow: 0 4px 12px rgba(128, 0, 32, 0.2);
+      --glass-bg: rgba(255, 255, 255, 0.6);
+      --white: #ffffff;
+      --lg-font: 'Poppins', sans-serif;
+      --lg-font: 'Kaisei Tokumin', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #fff, #fff);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    .header {
+      margin-top: 30px;
+      width: 90%;
+      max-width: 1200px;
+      padding: 20px 30px;
+      border-radius: 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .logo {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--primary-color);
+      letter-spacing: 1px;
+      font-family: var(--lg-font);
+    }
+
+    .cart {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      padding: 10px 18px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .cart:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .cart i {
+      color: var(--primary-color);
+      font-size: 20px;
+    }
+
+    .cart p {
+      background-color: var(--primary-color);
+      color: var(--white);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      display: flex;
+      gap: 30px;
+      margin: 50px 0;
+      flex-wrap: wrap;
+    }
+
+    #root {
+      flex: 2;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .sidebar {
+      flex: 1;
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: var(--shadow);
+      min-width: 300px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .head {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+    }
+
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+      font-weight: 600;
+    }
+
+    .box {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #cbd5e1;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(30, 58, 138, 0.15);
+    }
+
+    .img-box {
+      height: 200px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .images {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .bottom p {
+      font-size: 15px;
+      color: #374151;
+    }
+
+    .bottom h2 {
+      font-size: 18px;
+      color: var(--primary-color);
+      margin: 8px 0;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #172554;
+      transform: scale(1.05);
+    }
+
+    .cart-item {
+      background: var(--white);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow);
+      border: 1px solid #d1d5db;
+    }
+
+    .row-img {
+      width: 55px;
+      height: 55px;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-right: 12px;
+    }
+
+    .rowimg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cart-item p {
+      flex: 1;
+      font-size: 14px;
+      color: #444;
+      margin-left: 10px;
+    }
+
+    .cart-item h2 {
+      font-size: 14px;
+      color: var(--primary-color);
+    }
+    .cart-group {
+  display: flex;
+  gap: 12px;
+}
+
+    .fa-trash {
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .fa-trash:hover {
+      color: #dc2626;
+    }
+
+    #cartItem {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+    }
+
+    /* Search and filter styles */
+    #searchInput, #categoryFilter {
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+    }
+    /* footer */
+    footer {
+  width: 100%;
+  margin-top: auto;
+  font-family: var(--lg-font);
+}
+
+footer .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+footer .brand{
+    font-family: var(--lg-font);
+    letter-spacing: 2px;
+
+}
+footer a{
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+footer a:hover{
+    color: var(--pink)!important;
+}
+
+/* media queries */
+@media(min-width: 992px){
+    .nav-item{
+        border-bottom: none;
+    }
+}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <p class="logo">Aura Store Women Section</p>
+    <div class="cart-group">
+      <div class="cart">
+        <a href="index.html">
+        <i class="fa-solid fa-home"></i>
+        </a>
+      </div>
+      <div class="cart">
+        <i class="fa-solid fa-shopping-cart"></i>
+        <p id="count">0</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="sidebar">
+      <div class="head">Filters</div>
+      <input type="text" id="searchInput" placeholder="Search products..." oninput="searchProduct()" />
+      <select id="categoryFilter" onchange="filterCategory()">
+        <option value="all">All Products</option>
+        <option value="T-shirt">T-shirt</option>
+        <option value="Jeans">Jeans</option>
+        <option value="Jacket">Jacket</option>
+        <!-- Tambahkan kategori lain jika perlu -->
+      </select>
+    </div>
+
+    <div id="root"></div>
+
+    <div class="sidebar">
+      <div class="head">My Cart</div>
+      <div id="cartItem">Your cart is empty</div>
+      <div class="foot">
+        <h3>Total</h3>
+        <h2 id="total">$ 0.00</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+<footer class = "bg-dark py-5">
+  <div class = "container">
+      <div class = "row text-white g-4">
+          <div class = "col-md-6 col-lg-3">
+              <a class = "text-uppercase text-decoration-none brand text-white" href = "index.html">Aura Store</a>
+              <p class = "text-white text-muted mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum mollitia quisquam veniam odit cupiditate, ullam aut voluptas velit dolor ipsam?</p>
+          </div>
+
+          <div class = "col-md-6 col-lg-3">
+              <h5 class = "fw-light">Links</h5>
+              <ul class = "list-unstyled">
+                  <li class = "my-3">
+                      <a href = "#" class = "text-white text-decoration-none text-muted">
+                          <i class = "fas fa-chevron-right me-1"></i> Home
+                      </a>
+                  </li>
+                  <li class = "my-3">
+                      <a href = "#" class = "text-white text-decoration-none text-muted">
+                          <i class = "fas fa-chevron-right me-1"></i> Collection
+                      </a>
+                  </li>
+                  <li class = "my-3">
+                      <a href = "#" class = "text-white text-decoration-none text-muted">
+                          <i class = "fas fa-chevron-right me-1"></i> Blogs
+                      </a>
+                  </li>
+                  <li class = "my-3">
+                      <a href = "#" class = "text-white text-decoration-none text-muted">
+                          <i class = "fas fa-chevron-right me-1"></i> About Us
+                      </a>
+                  </li>
+              </ul>
+          </div>
+
+          <div class = "col-md-6 col-lg-3">
+              <h5 class = "fw-light mb-3">Contact Us</h5>
+              <div class = "d-flex justify-content-start align-items-start my-2 text-muted">
+                  <span class = "me-3">
+                      <i class = "fas fa-map-marked-alt"></i>
+                  </span>
+                  <span class = "fw-light">
+                      Aura Fadila, Kab Semarang, 0000, Indonesia
+                  </span>
+              </div>
+              <div class = "d-flex justify-content-start align-items-start my-2 text-muted">
+                  <span class = "me-3">
+                      <i class = "fas fa-envelope"></i>
+                  </span>
+                  <span class = "fw-light">
+                      aurastore.support@gmail.com
+                  </span>
+              </div>
+              <div class = "d-flex justify-content-start align-items-start my-2 text-muted">
+                  <span class = "me-3">
+                      <i class = "fas fa-phone-alt"></i>
+                  </span>
+                  <span class = "fw-light">
+                      +9786 6776 236
+                  </span>
+              </div>
+          </div>
+
+          <div class = "col-md-6 col-lg-3">
+              <h5 class = "fw-light mb-3">Follow Us</h5>
+              <div>
+                  <ul class = "list-unstyled d-flex">
+                      <li>
+                          <a href = "#" class = "text-white text-decoration-none text-muted fs-4 me-4">
+                              <i class = "fab fa-facebook-f"></i>
+                          </a>
+                      </li>
+                      <li>
+                          <a href = "#" class = "text-white text-decoration-none text-muted fs-4 me-4">
+                              <i class = "fab fa-twitter"></i>
+                          </a>
+                      </li>
+                      <li>
+                          <a href = "#" class = "text-white text-decoration-none text-muted fs-4 me-4">
+                              <i class = "fab fa-instagram"></i>
+                          </a>
+                      </li>
+                      <li>
+                          <a href = "#" class = "text-white text-decoration-none text-muted fs-4 me-4">
+                              <i class = "fab fa-pinterest"></i>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+<!-- end of footer -->
+  <script>
+    const product = [
+      { id: 0, image: 'girl/bag1.jpg', title: 'Stylish Top', price: 45.50, category: 'T-shirt' },
+      { id: 1, image: 'girl/bag2.jpg', title: 'Comfort Fit Jeans', price: 45.50, category: 'Jeans' },
+      { id: 2, image: 'girl/heels1.jpg', title: 'Casual Vest', price: 45.50, category: 'T-shirt' },
+      { id: 3, image: 'girl/heels2.jpg', title: 'Basic Blue Tee', price: 45.50, category: 'T-shirt' },
+      { id: 4, image: 'girl/clothes1.jpg', title: 'Classic Dark Jacket', price: 45.50, category: 'Jacket' },
+      { id: 5, image: 'girl/clothes2.jpg', title: 'Elegant Black Shirt', price: 45.50, category: 'T-shirt' },
+      { id: 6, image: 'girl/makeup1.jpg', title: 'Navy Blue Dress', price: 45.50, category: 'T-shirt' },
+      { id: 7, image: 'girl/makeup2.jpg', title: 'Warm Black Sweater', price: 45.50, category: 'Jacket' }
+    ];
+
+    let cart = [];
+
+    // Menampilkan produk berdasarkan kategori
+    function renderProducts(filteredProducts) {
+      document.getElementById('root').innerHTML = filteredProducts.map((item, i) => {
+        const { image, title, price } = item;
+        return `
+          <div class='box'>
+            <div class='img-box'>
+              <img class='images' src=${image} alt="${title}">
+            </div>
+            <div class='bottom'>
+              <p>${title}</p>
+              <h2>$ ${price.toFixed(2)}</h2>
+              <button onclick='addtocart(${i})'>Add to cart</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Filter berdasarkan kategori
+    function filterCategory() {
+      const category = document.getElementById('categoryFilter').value;
+      const filteredProducts = category === 'all' ? product : product.filter(item => item.category === category);
+      renderProducts(filteredProducts);
+    }
+
+    // Fungsi untuk pencarian produk
+    function searchProduct() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const filteredProducts = product.filter(item => item.title.toLowerCase().includes(searchTerm));
+      renderProducts(filteredProducts);
+    }
+
+    // Menambahkan produk ke keranjang belanja
+    function addtocart(a) {
+      cart.push({ ...product[a] });
+      displaycart();
+    }
+
+    // Menghapus item dari keranjang
+    function delElement(a) {
+      cart.splice(a, 1);
+      displaycart();
+    }
+
+    // Menampilkan isi keranjang
+    function displaycart() {
+      let j = 0, total = 0;
+      document.getElementById("count").innerText = cart.length;
+
+      if (cart.length === 0) {
+        document.getElementById('cartItem').innerHTML = "Your cart is empty";
+        document.getElementById("total").innerText = "$ 0.00";
+      } else {
+        document.getElementById("cartItem").innerHTML = cart.map((item) => {
+          const { image, title, price } = item;
+          total += price;
+          document.getElementById("total").innerText = "$ " + total.toFixed(2);
+          return `
+            <div class='cart-item'>
+              <div class='row-img'>
+                <img class='rowimg' src=${image} alt="${title}">
+              </div>
+              <p>${title}</p>
+              <h2>$ ${price.toFixed(2)}</h2>
+              <i class='fa-solid fa-trash' onclick='delElement(${j++})'></i>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // Initial render of all products
+    renderProducts(product);
+  </script>
+</body>
+</html>
